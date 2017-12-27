@@ -18,9 +18,10 @@ Some key features:
 
 2. Usage                                                 *colorcoder-usage*
 
-This plugin requires NeoVim and |Python| support. Use |:CheckHealth| to
-verify that python plugin is working. After installing or updating this
-plugin, make sure to run |:UpdateRemotePlugins| to load it.
+This plugin requires NeoVim with |Python| support. Use |:CheckHealth| to
+verify that python plugin is working. This plugin also requires
+|true-color|. After installing or updating this plugin, make sure to run
+|:UpdateRemotePlugins| to load.
 
 It's recommended to set |g:colorcoder_enable_filetypes| in |init.vim| to
 enable automatically highlighting for specific filetypes. Or you can use

@@ -4,8 +4,8 @@
 import re
 import neovim
 import colorsys
-import hashlib
 import collections
+from zlib import crc32
 
 
 class VimBatcher:
@@ -85,7 +85,7 @@ class Colorcoder:
             for word in words:
                 if word in cache or word in SYNTAX_KEYWORD_RESERVED:
                     continue
-                idx = hashlib.sha1(word.encode()).digest()[0]
+                idx = crc32(word.encode()) % 256
                 words_group[idx].append(word)
                 cache.add(word)
             with VimBatcher(self.vim) as batcher:

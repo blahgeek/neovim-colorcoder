@@ -1,4 +1,4 @@
-function s:load_au_buflocal()
+function! s:load_au_buflocal()
     if exists('b:colorcoder_au_loaded') && b:colorcoder_au_loaded == 1
         return
     endif

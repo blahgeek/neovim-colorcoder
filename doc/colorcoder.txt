@@ -18,7 +18,7 @@ Some key features:
 
 2. Usage                                                 *colorcoder-usage*
 
-This plugin requires NeoVim with |Python| support. Use |:CheckHealth| to
+This plugin requires NeoVim with |python3| support. Use |:CheckHealth| to
 verify that python plugin is working. This plugin also requires
 |true-color|. After installing or updating this plugin, make sure to run
 |:UpdateRemotePlugins| to load.

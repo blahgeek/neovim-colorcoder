@@ -1,0 +1,78 @@
+*colorcoder.txt*
+
+===========================================================================
+
+1. Introduction                                                *colorcoder*
+
+Highlight based on hash of words.
+See https://medium.com/@evnbr/coding-in-color-3a6db2743a1e for details.
+
+Some key features:
+
+* Works with all filetypes
+* Auto generated colors (configurable)
+* Fast and asynchronous
+* Ignore keywords based on syntax file
+
+===========================================================================
+
+2. Usage                                                 *colorcoder-usage*
+
+This plugin requires NeoVim and |Python| support. Use |:CheckHealth| to
+verify that python plugin is working. After installing or updating this
+plugin, make sure to run |:UpdateRemotePlugins| to load it.
+
+It's recommended to set |g:colorcoder_enable_filetypes| in |init.vim| to
+enable automatically highlighting for specific filetypes. Or you can use
+|:ColorcoderUpdate| to update highlighting.
+
+Use |g:colorcoder_lightness| and |g:colorcoder_saturation| to change
+highlighting color.
+
+===========================================================================
+
+3. Options                                             *colorcoder-options*
+
+g:colorcoder_enable_filetypes               *g:colorcoder_enable_filetypes*
+
+Type: |List|
+Default: `[]`
+
+Enable colorcoder for those filetypes automatically. For example: >
+
+    let g:colorcoder_enable_filetypes = ['c', 'cpp', 'python']
+<
+
+---------------------------------------------------------------------------
+
+g:colorcoder_lightness, g:colorcoder_saturation    *g:colorcoder_lightness*
+                                                  *g:colorcoder_saturation*
+
+Type: |Float|, between 0 and 1
+Default: `0.6`, `0.4`
+
+Generate highlighting colors based on specified lightness and saturation.
+
+---------------------------------------------------------------------------
+
+b:colorcoder_disable                                 *b:colorcoder_disable*
+
+Disable highlighting for buffer. Execute |:ColorcoderUpdate|! after updating
+this value.
+
+===========================================================================
+
+4. Commands                                           *colorcoder-commands*
+
+:ColorcoderUpdate[!]                                    *:ColorcoderUpdate*
+
+Update highlighting for current buffer. With `!`, caches would be flushed.
+If enabled, this command would be executed on |BufReadPost| and |TextChanged|.
+
+---------------------------------------------------------------------------
+
+:ColorcoderUpdateLine                               *:ColorcoderUpdateLine*
+
+Like |:ColorcoderUpdate|, but only update based on texts of current line,
+which is faster. If enabled, this command would be executed on |TextChangedI|.
+

@@ -77,21 +77,30 @@ class Colorcoder:
         if not disabled:
             words = re.findall(self.pattern, content)
             words_group = collections.defaultdict(lambda: [])
+            words_reserved = []
 
             if not cache:
                 # do not highlight keywords
                 cache |= set(self.vim.call('syntaxcomplete#OmniSyntaxList'))
 
             for word in words:
-                if word in cache or word in SYNTAX_KEYWORD_RESERVED:
+                if word in cache:
                     continue
                 idx = crc32(word.encode()) % 256
-                words_group[idx].append(word)
+                if word.lower() in SYNTAX_KEYWORD_RESERVED:
+                    words_reserved.append((idx, word))
+                else:
+                    words_group[idx].append(word)
                 cache.add(word)
             with VimBatcher(self.vim) as batcher:
+                # use "syn match" for reserved syntax options (they cannot use "syn keyword")
+                # use "syn keyword" for every others (we assume "syn keyword" is faster)
                 for idx, wlist in words_group.items():
                     batcher.command('syn keyword colorcoder_{} {}'
                                     .format(idx, ' '.join(wlist)))
+                for idx, word in words_reserved:
+                    batcher.command('syn match colorcoder_{} /{}/'
+                                    .format(idx, word))
 
         buf.api.set_var('colorcoder_cache', list(cache))
 
